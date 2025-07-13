@@ -3,9 +3,9 @@ import './App.css'
 function App() {
 
   return (
-    <>
-      <h1 className='font-light text-6xl'>bonjour</h1>
-    </>
+    <div className='font-dmSansRegular tracking-tigher leading-base'>
+      <h1 className='text-xs'>bonjour</h1>
+    </div>
   )
 }
 
