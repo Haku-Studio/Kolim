@@ -3,6 +3,7 @@ export default {
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
+    "./routeTree.gen.ts", // or wherever the routes are
   ],
   theme: {
     extend: {
@@ -32,10 +33,21 @@ export default {
         base: '155%'
       },
       colors: {
-        
+        primary: '#6791C9',
+        greyScale800: '#030616',
+        greyScale500: '#364153',
+        greyScale300: '#4A5567',
+        geyScale100: '#CDD5E0',
+        greyScale50: '#E3E8EF',
+        greyScale25 : '#F2F5F9',
+        greyScale0: '#F8FAFC'
+      },
+      borderRadius: {
+        base: '12px'
       }
     },
   },
   plugins: [],
 }
+
 
