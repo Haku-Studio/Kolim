@@ -5,5 +5,9 @@ export const Route = createFileRoute('/onboarding')({
 })
 
 function Onboarding() {
-  return <div>Hello "/onboarding"!</div>
+  return (
+    <div>
+        
+    </div>
+  )
 }

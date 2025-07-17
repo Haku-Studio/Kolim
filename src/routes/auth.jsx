@@ -1,4 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router'
+import AppLayout from '../components/appLayout'
 
 export const Route = createFileRoute('/auth')({
   component: Auth,
@@ -6,8 +7,10 @@ export const Route = createFileRoute('/auth')({
 
 function Auth() {
   return (
-        <div>
-            <h1>Hello "/auth"!</h1>
-        </div>
+        <AppLayout>
+            <div className='pt-10'>
+            page de connexion
+            </div>
+        </AppLayout>
     )  
 }
