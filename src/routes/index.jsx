@@ -1,4 +1,9 @@
 import { createFileRoute } from '@tanstack/react-router'
+import AuthButton from '../components/base/authButton'
+import AppLayout from '../components/appLayout'
+import SearchButton from '../components/base/searchButton'
+import Tabs from '../components/base/tabs'
+import AppContainer from '../components/partials/appContainer'
 
 export const Route = createFileRoute('/')({
   component: Index,
@@ -6,8 +11,10 @@ export const Route = createFileRoute('/')({
 
 function Index() {
   return (
-    <div className="p-2">
-      <h1>Welcome Home!</h1>
-    </div>
+    <AppLayout>
+      <SearchButton />
+      <Tabs />
+      <AppContainer />
+    </AppLayout>
   )
 }
