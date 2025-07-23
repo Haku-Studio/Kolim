@@ -27,7 +27,8 @@ export default {
         md: "16px",
         base: '18px',
         lg: '20px',
-        xl: '22px'
+        xl: '22px',
+        xxl: '24px',
       },
       lineHeight: {
         base: '155%'
