@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, useRouter } from '@tanstack/react-router'
 import AuthButton from '../components/base/authButton'
 import AppLayout from '../components/appLayout'
 import SearchButton from '../components/base/searchButton'
@@ -10,22 +10,30 @@ import SearchForm from '../components/forms/SearchForm'
 import {useEffect} from 'react'
 import {useAppStore} from '@/store/useAppStore'
 import published from '@/assets/app_illustrations/published.svg'
+import redirection from '@/assets/app_illustrations/redirection.svg'
 
 export const Route = createFileRoute('/')({
   component: Index,
 })
 
+
 function Index() {
+
+  const router = useRouter()
 
   const isSearchModalOpen = useAppStore(state => state.isSearchModalOpen)
   const isCreatePostModalOpen = useAppStore(state => state.isCreatePostModalOpen)
   const isDetailsModalOpen = useAppStore(state => state.isDetailsModalOpen)
   const isSuccessPostCreatedModalOpen = useAppStore(state => state.isSuccessPostCreatedModalOpen)
+  const isRedirectionModalOpen = useAppStore(state => state.isRedirectionModalOpen)
 
   const openSuccesPostCreatedModal = useAppStore(state => state.openSuccesPostCreatedModal)
+  const openRedirectionModal = useAppStore(state => state.openRedirectionModel)
+
+  const closeSearchModal = useAppStore(state => state.closeSearchModal)
   
   useEffect(() => {
-    if(isSearchModalOpen || isCreatePostModalOpen ||isDetailsModalOpen ||isSuccessPostCreatedModalOpen){
+    if(isSearchModalOpen || isCreatePostModalOpen ||isDetailsModalOpen ||isSuccessPostCreatedModalOpen ||isRedirectionModalOpen){
       document.body.style.overflow = "hidden"
     }else{
       document.body.style.overflow = ""
@@ -34,7 +42,15 @@ function Index() {
     return () => {
       document.body.style.overflow=""
     }
-  }, [isSearchModalOpen, isCreatePostModalOpen, isDetailsModalOpen, isSuccessPostCreatedModalOpen])
+  }, [isSearchModalOpen, isCreatePostModalOpen, isDetailsModalOpen, isSuccessPostCreatedModalOpen, isRedirectionModalOpen])
+
+  const goToSearchPage = () => {
+    closeSearchModal()
+    router.navigate({to : "/search"})
+    
+  }
+
+  
 
   return (
     <AppLayout>
@@ -47,6 +63,7 @@ function Index() {
             <ModalLayout 
               modalTitle = "Rechercher un depart"
               buttonName = "Rechercher"
+              action = {goToSearchPage}
             >
               <SearchForm />
             </ModalLayout>
@@ -59,27 +76,28 @@ function Index() {
             <ModalLayout 
               modalTitle = "Details du voyage"
               buttonName = "Envoyer un colis"
+              action = {openRedirectionModal}
             >
               <div className="space-y-3">
                 <div className="space-y-[2px] pb-3 border-b border-b-solid border-b-greyScale25">
-                  <h3 className="font-dmSansSemibold text-md">Itineraire</h3>
-                  <p className="text-sm text-greyScale300">Istanbul → Douala</p>
+                  <h3 className="font-dmSansSemibold text-sm">Itineraire</h3>
+                  <p className="text-xs text-greyScale300">Istanbul → Douala</p>
                 </div>
                 <div className="space-y-[2px] pb-3 border-b border-b-solid border-b-greyScale25">
-                  <h3 className="font-dmSansSemibold text-md">Date et heure de depart</h3>
-                  <p className="text-sm text-greyScale300">24, septembre 2025 - 08h00</p>
+                  <h3 className="font-dmSansSemibold text-sm">Date et heure de depart</h3>
+                  <p className="text-xs text-greyScale300">24, septembre 2025 - 08h00</p>
                 </div>
                 <div className="space-y-[2px] pb-3 border-b border-b-solid border-b-greyScale25">
-                  <h3 className="font-dmSansSemibold text-md">Date et heure de d'arrivée</h3>
-                  <p className="text-sm text-greyScale300">25, septembre 2025 - 10h30</p>
+                  <h3 className="font-dmSansSemibold text-sm">Date et heure de d'arrivée</h3>
+                  <p className="text-xs text-greyScale300">25, septembre 2025 - 10h30</p>
                 </div>
                 <div className="space-y-[2px] pb-3 border-b border-b-solid border-b-greyScale25">
-                  <h3 className="font-dmSansSemibold text-md">Poids disponible</h3>
-                  <p className="text-sm text-greyScale300">23 kilos * 2</p>
+                  <h3 className="font-dmSansSemibold text-sm">Poids disponible</h3>
+                  <p className="text-xs text-greyScale300">23 kilos * 2</p>
                 </div>
                 <div className="space-y-[2px] pb-3m ">
-                  <h3 className="font-dmSansSemibold text-md">Prix du kilo</h3>
-                  <p className="text-sm text-greyScale300">15$</p>
+                  <h3 className="font-dmSansSemibold text-sm">Prix du kilo</h3>
+                  <p className="text-xs text-greyScale300">15$</p>
                 </div>
               </div>
             </ModalLayout>
@@ -205,6 +223,22 @@ function Index() {
             <div className='flex items-center flex-col pb-6'> 
               <img src={published} alt="" />
               <h3 className='text-greyScale800 text-xxl font-dmSansSemibold max-w-[245px] text-center'>Voyage publié avec succès</h3>
+            </div>
+          </ModalLayout>
+          </div>
+        )
+      }
+
+      {
+        isRedirectionModalOpen && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 ">
+          <ModalLayout 
+            modalTitle = ""
+            buttonName = "Continuer"
+          >
+            <div className='flex items-center flex-col pb-6'> 
+              <img src={redirection} alt="" />
+              <h3 className='text-greyScale800 text-xxl font-dmSansSemibold max-w-[245px] text-center'>Redirection</h3>
             </div>
           </ModalLayout>
           </div>

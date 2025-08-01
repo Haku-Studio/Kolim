@@ -6,26 +6,29 @@ export const useAppStore = create((set) => ({
   isDetailsModalOpen: false,
   isAuthModalOpen: false,
   isSuccessPostCreatedModalOpen: false,
+  isRedirectionModalOpen: false,
 
   openSearchModal: () => set({ isSearchModalOpen: true }),
-  closeSearchModal: () => set({ isSearchModalOpen: false }),
+  closeSearchModal: () =>set({isSearchModalOpen: false}),
   
   openDetailsModal: () => set({isDetailsModalOpen: true}),
-  closeDeatilsModal: () => set({isDetailsModalOpen: false}),
+  closeDetailsModal: () => set({isDetailsModalOpen: false}),
 
   openCreatePostModal: () => set({ isCreatePostModalOpen: true }),
-  closeCreatePostModal: () => set({ isCreatePostModalOpen: false }),
 
   openAuthModal: () => set({isAuthModalOpen: true}),
-  closeAuthModal: () => set({isAtuhModalOpen: false}),
 
   openSuccesPostCreatedModal: () => set({isSuccessPostCreatedModalOpen: true, isCreatePostModalOpen: false}),
+
+  openRedirectionModel: () => set({isRedirectionModalOpen: true, isDetailsModalOpen: false}),
+
 
   closeAllModals: () => set({ 
     isSearchModalOpen: false,
     isCreatePostModalOpen: false,
     isDetailsModalOpen: false,
     isAuthModalOpen: false,
-    isSuccessPostCreatedModalOpen: false
+    isSuccessPostCreatedModalOpen: false,
+    isRedirectionModalOpen: false
   })
 }))

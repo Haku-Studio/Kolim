@@ -3,12 +3,15 @@ import CloseButton from "../base/closeButton";
 
 export default function AuthModal(){
     return (
-        <div className="pt-[72px] bg-white rounded-t-[20px] absolute bottom-0">
+        <div className="pt-[72px] bg-white rounded-t-[20px] absolute bottom-0 z-100">
             <CloseButton />
             <div className="space-y-6 px-4 pb-[200px] pt-4">
                 <h2 className="text-xxl text-greyScale800 font-dmSansSemibold">Connecter vous pour continuer</h2>
                 <div className="space-y-3">
-                    <AuthButton name="Continuer avec Google">
+                    <AuthButton 
+                        name="Continuer avec Google"
+                        type="google auth"
+                    >
                         <svg className="vector" width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M8.5 6.54544V9.64363H12.8054C12.6164 10.64 12.049 11.4837 11.1981 12.0509L13.7945 14.0655C15.3072 12.6692 16.18 10.6182 16.18 8.18188C16.18 7.61462 16.1291 7.06912 16.0345 6.54553L8.5 6.54544Z" fill="#4285F4" />
                             <path d="M4.01649 9.52267L3.43092 9.97093L1.35815 11.5854C2.67451 14.1963 5.3725 16 8.49974 16C10.6597 16 12.4706 15.2873 13.7942 14.0655L11.1979 12.0509C10.4852 12.5309 9.57606 12.8218 8.49974 12.8218C6.41976 12.8218 4.65254 11.4182 4.01976 9.52729L4.01649 9.52267Z" fill="#34A853" />
@@ -16,7 +19,10 @@ export default function AuthModal(){
                             <path d="M8.49991 3.18545C9.67811 3.18545 10.7254 3.59271 11.5617 4.37818L13.8526 2.0873C12.4635 0.792777 10.6599 0 8.49991 0C5.37266 0 2.67451 1.79636 1.35815 4.41455L4.01994 6.48001C4.65263 4.58908 6.41992 3.18545 8.49991 3.18545Z" fill="#EA4335" />
                         </svg>
                     </AuthButton>
-                    <AuthButton name="Continuer avec Facebook">
+                    <AuthButton 
+                        name="Continuer avec Facebook"
+                        type="facebook auth"
+                    >
                         <svg class="social-icons" width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g clip-path="url(#clip0_208_776)">
                                 <path d="M16.5 8C16.5 3.58176 12.9182 0 8.5 0C4.08176 0 0.5 3.58176 0.5 8C0.5 11.7517 3.08304 14.8998 6.56752 15.7645V10.4448H4.91792V8H6.56752V6.94656C6.56752 4.22368 7.79984 2.9616 10.4731 2.9616C10.98 2.9616 11.8546 3.06112 12.2123 3.16032V5.37632C12.0235 5.35648 11.6955 5.34656 11.2882 5.34656C9.97648 5.34656 9.4696 5.84352 9.4696 7.13536V8H12.0827L11.6338 10.4448H9.4696V15.9414C13.4309 15.463 16.5003 12.0902 16.5003 8H16.5Z" fill="#0866FF" />

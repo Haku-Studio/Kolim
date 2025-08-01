@@ -22,6 +22,7 @@ export default {
         thigher: "-2%"
       },
       fontSize: {
+        xxs: '10px',
         xs: "12px",
         sm: "14px",
         md: "16px",
@@ -29,6 +30,7 @@ export default {
         lg: '20px',
         xl: '22px',
         xxl: '24px',
+        xxxl: '32px',
       },
       lineHeight: {
         base: '155%'
