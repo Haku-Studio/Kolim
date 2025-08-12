@@ -14,10 +14,9 @@ function Onboarding() {
   const openAuthModal = useAppStore((state) => state.openAuthModal);
   const token = useAuthStore((state) => state.token);
   const navigate = useNavigate();
-  console.log("token", token);
+
   useEffect(() => {
-    if (token && token !== "undefined") {
-      console.log("token", token);
+    if (token) {
       navigate({ to: "/" });
     }
   }, [token]);
