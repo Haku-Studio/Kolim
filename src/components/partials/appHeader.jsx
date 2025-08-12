@@ -31,7 +31,7 @@ export default function AppHeader({state}){
         .then((res) => res.json())
         .then((datas) => setUsers(datas.users))
         .catch((err)=> console.error('ERREUR', err))
-      })
+      }, [])
 
     return (
         <div className=" trackink-thigher flex items-center justify-between px-4 py-4">
@@ -46,7 +46,7 @@ export default function AppHeader({state}){
                     <div className='flex space-x-1'>
                         {
                             users.map((user) => (
-                            <h1 className="text-greyScale800 text-sm">{user.name}</h1> 
+                            <h1 key={user.id} className="text-greyScale800 text-sm">{user.name}</h1> 
                             ))
                         }
                         
