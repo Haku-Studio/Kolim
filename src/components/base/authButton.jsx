@@ -1,15 +1,17 @@
 import { openOAuthPopup } from "../../utils/openOAuthPopup";
 import { useAuthStore } from "../../store/UseAuthStore";
+import { useNavigate } from "@tanstack/react-router";
 
 export default function AuthButton({ children, ...props }) {
   const login = useAuthStore((s) => s.login);
+  const navigate = useNavigate();
 
   const handleLogin = () => {
     openOAuthPopup(
       "http://localhost:3000/api/auth/google", // URL backend de démarrage OAuth
       (token) => {
         login({ token });
-        window.location.reload(); // ou navigate({ to: '/' })
+        navigate({ to: "/" });
       },
       () => {
         alert("Échec de l’authentification Google");
