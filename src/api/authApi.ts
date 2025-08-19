@@ -1,5 +1,3 @@
-import axiosWithToken from "./axiosInstance";
-
 export const authApi = {
     loginWithGoogle: async (googleCode: string) => {
 

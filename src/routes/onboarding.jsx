@@ -10,16 +10,18 @@ export const Route = createFileRoute("/onboarding")({
 });
 
 function Onboarding() {
-  const isAuthModalOpen = useAppStore((state) => state.isAuthModalOpen);
-  const openAuthModal = useAppStore((state) => state.openAuthModal);
-  const token = useAuthStore((state) => state.token);
   const navigate = useNavigate();
+  const token = useAuthStore((state) => state.token);
+  const { isAuthModalOpen, closeAuthModal, openAuthModal } = useAppStore();
+
+  console.log("onboarding token:", token);
 
   useEffect(() => {
     if (token) {
+      closeAuthModal();
       navigate({ to: "/" });
     }
-  }, [token]);
+  }, [token, navigate, closeAuthModal]);
 
   return (
     <div

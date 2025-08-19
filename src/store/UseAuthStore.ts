@@ -2,18 +2,24 @@ import { create } from "zustand";
 
 type AuthState = {
   token: string | null;
+  getToken: () => string | null;
   login: (token: string) => void;
   logout: () => void;
 };
 
 export const useAuthStore = create<AuthState>((set) => ({
-  token: null,
+  token: localStorage.getItem("token"),
+  getToken: () => localStorage.getItem("token"),
   login: (token) => {
-    localStorage.setItem("token", token);
     set({ token });
+    try {
+      localStorage.setItem("token", token);
+    } catch (e) {}
   },
   logout: () => {
-    localStorage.removeItem("token");
     set({ token: null });
+    try {
+      localStorage.removeItem("token");
+    } catch (e) {}
   },
 }));

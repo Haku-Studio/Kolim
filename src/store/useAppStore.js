@@ -17,6 +17,7 @@ export const useAppStore = create((set) => ({
   openCreatePostModal: () => set({ isCreatePostModalOpen: true }),
 
   openAuthModal: () => set({isAuthModalOpen: true}),
+  closeAuthModal: () => set({isAuthModalOpen: false}),
 
   openSuccesPostCreatedModal: () => set({isSuccessPostCreatedModalOpen: true, isCreatePostModalOpen: false}),
 
