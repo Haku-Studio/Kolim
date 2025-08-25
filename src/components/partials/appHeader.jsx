@@ -1,43 +1,57 @@
-import profilepic from '@/assets/images/profilepic.jpg'
+// import profilepic from '@/assets/images/profilepic.jpg'
 import CreatePostButton from '../base/createPostButton'
 import hand from '@/assets/icones/hand.svg'
 import { useEffect, useState } from 'react'
-import {createServer} from 'miragejs'
+import { userService } from '../../api/services/userService';
+// import {createServer} from 'miragejs'
 
 
-createServer({
-    routes() {
-        this.namespace = "api"
-        this.get("/users", () => ({
-            users : [
-                {
-                    id: 0,
-                    name: 'Christy',
-                    phoneNumber: +5058995101
-                },
-            ]
-        }))
-    }
-})
+// createServer({
+//     routes() {
+//         this.namespace = "api"
+//         this.get("/users", () => ({
+//             users : [
+//                 {
+//                     id: 0,
+//                     name: 'Christy',
+//                     phoneNumber: +5058995101
+//                 },
+//             ]
+//         }))
+//     }
+// })
 
 export default function AppHeader({state}){
 
     //define users tables
-      const [users, setUsers] = useState([])
-    
-      //fetch user from mirage js server
+    //   const [users, setUsers] = useState([]);
+      const [user, setUser] = useState(null);
+
       useEffect(() => {
-        fetch('/api/users')
-        .then((res) => res.json())
-        .then((datas) => setUsers(datas.users))
-        .catch((err)=> console.error('ERREUR', err))
-      }, [])
+        // userController
+        const fetchUser = async () => {
+          const response = await userService.getUserConnected();
+          const user = response.data;
+          console.log(user);
+
+          setUser(user);
+        };
+        fetchUser();
+      }, []);
+
+      //fetch user from mirage js server
+    //   useEffect(() => {
+    //     fetch('/api/users')
+    //     .then((res) => res.json())
+    //     .then((datas) => setUsers(datas.users))
+    //     .catch((err)=> console.error('ERREUR', err))
+    //   }, [])
 
     return (
         <div className=" trackink-thigher flex items-center justify-between px-4 py-4">
             <div className='flex items-center space-x-3'>
                 <img 
-                    src={profilepic} 
+                    src={user && user.picture } 
                     alt="profile pic" 
                     className="w-10 h-10 rounded-full"
                 />
@@ -45,9 +59,9 @@ export default function AppHeader({state}){
                     
                     <div className='flex space-x-1'>
                         {
-                            users.map((user) => (
-                            <h1 key={user.id} className="text-greyScale800 text-sm">{user.name}</h1> 
-                            ))
+                            // users.map((user) => (
+                            <h1 key={user && user.id} className="text-greyScale800 text-sm">{user && user.name}</h1> 
+                            // ))
                         }
                         
                         <img src={hand} alt="" className='inline w-4 h-4'/>
