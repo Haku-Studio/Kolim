@@ -12,8 +12,10 @@ import { useAppStore } from "@/store/useAppStore";
 import published from "@/assets/app_illustrations/published.svg";
 import redirection from "@/assets/app_illustrations/redirection.svg";
 import { useTravel } from "../hooks/api/useTravel";
+import { useRequest } from "../hooks/api/useRequest";
 import { validateTravelForm } from "../utils/validateTravelForm";
 import CreateTravelForm from "../components/forms/CreateTravelForm";
+import { validateSearchForm } from "../utils/validateSearchForm";
 // import axios from "axios";
 // import { travelService } from "../api/services/travelService";
 
@@ -45,7 +47,10 @@ function Index() {
 
   const closeSearchModal = useAppStore((state) => state.closeSearchModal);
 
+  const travelDetail = useAppStore((state) => state.travelDetail);
+
   const { createTravel, isLoading, error } = useTravel();
+  const { createRequest } = useRequest();
 
   const [formData, setFormData] = useState({
     from: "",
@@ -54,6 +59,7 @@ function Index() {
     arrivalDate: "",
     weightAvailable: 0,
     pricePerKg: 0,
+    phoneNumber: 0
   });
   const [formErrors, setFormErrors] = useState({});
   const [successMessage, setSuccessMessage] = useState("");
@@ -82,9 +88,35 @@ function Index() {
     isRedirectionModalOpen,
   ]);
 
+  // search config
+  const [errors, setErrors] = useState({});
+  const [searchData, setSearchData] = useState({
+    from: "",
+    to: "",
+    availableWeight: "",
+    departureDate: "",
+    arrivalDate: "",
+  });
+
+  const handleSearchValidate = () => {
+    const validationErrors = validateSearchForm(searchData);
+    setErrors(validationErrors);
+    console.log(Object.values(validationErrors));
+    
+    return Object.keys(validationErrors).length === 0;
+  };
+
   const goToSearchPage = async () => {
-    closeSearchModal();
-    router.navigate({ to: "/search" });
+    const formIsValid = handleSearchValidate();
+    console.log(formIsValid);
+    
+    if (formIsValid) {
+      closeSearchModal();
+      router.navigate({
+        to: "/search",
+        search: { ...searchData },
+      });
+    }
   };
 
   const handleSubmit = async (event) => {
@@ -94,8 +126,7 @@ function Index() {
     const hasErrors = Object.values(errors).some((v) => v && v.length > 0);
     if (hasErrors) return;
 
-      console.log("Form data:", formData);
-
+    console.log("Form data:", formData);
 
     try {
       console.log("Form data:", formData);
@@ -109,6 +140,7 @@ function Index() {
         arrivalDate: "",
         weightAvailable: 0,
         pricePerKg: 0,
+        phoneNumber: 0
       });
       setFormErrors({});
       // Optionnel: fermer le modal ou afficher le modal de succès
@@ -121,20 +153,48 @@ function Index() {
   if (isLoading) return <div>Chargement...</div>;
   if (error) return <div>Erreur: {error.message}</div>;
 
+  // pour le mvp
+  const createRequestForTravel = async () => {
+    const requestData = {
+      travel: travelDetail.id,
+      weight: travelDetail.weightAvailable,
+      description: "RAS"
+      // status: "pending",
+    };
+    return await createRequest(requestData);
+  };
+
+  const handleWhatsappRedirection = async () => {
+    openRedirectionModal();
+
+    const response = await createRequestForTravel();
+
+    console.log("request emission response", response);
+
+    const countryCode = travelDetail.owner.phone.startsWith("+") ? "" : "+237";
+    // Rediriger vers WhatsApp avec les détails du voyage
+    window.open(`https://wa.me/${countryCode}${travelDetail.owner.phone}?text=Bonjour,%20je%20veux%20réserver%20un%20voyage%20de%20${travelDetail.from}%20à%20${travelDetail.to}%20du%20${travelDetail.departureDate}%20au%20${travelDetail.arrivalDate}.%20Poids%20disponible:%20${travelDetail.weightAvailable}%20kg.%20Prix%20du%20kilo:%20${travelDetail.pricePerKg}%20$.`, "_blank");
+  }
+
+
   return (
     <AppLayout>
       <SearchButton />
       <Tabs />
       <AppContainer />
-      
+
       {isSearchModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 ">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60">
           <ModalLayout
             modalTitle="Rechercher un depart"
             buttonName="Rechercher"
             action={goToSearchPage}
           >
-            <SearchForm />
+            <SearchForm
+              searchData={searchData}
+              setSearchData={setSearchData}
+              errors={errors}
+            />
           </ModalLayout>
         </div>
       )}
@@ -143,19 +203,22 @@ function Index() {
           <ModalLayout
             modalTitle="Details du voyage"
             buttonName="Envoyer un colis"
-            action={openRedirectionModal}
+            // action={openRedirectionModal}
+            action={handleWhatsappRedirection}
           >
             <div className="space-y-3">
               <div className="space-y-[2px] pb-3 border-b border-b-solid border-b-greyScale25">
                 <h3 className="font-dmSansSemibold text-sm">Itineraire</h3>
-                <p className="text-xs text-greyScale300">Istanbul → Douala</p>
+                <p className="text-xs text-greyScale300">
+                  {travelDetail.from} → {travelDetail.to}
+                </p>
               </div>
               <div className="space-y-[2px] pb-3 border-b border-b-solid border-b-greyScale25">
                 <h3 className="font-dmSansSemibold text-sm">
                   Date et heure de depart
                 </h3>
                 <p className="text-xs text-greyScale300">
-                  24, septembre 2025 - 08h00
+                  {travelDetail.departureDate} - 08h00
                 </p>
               </div>
               <div className="space-y-[2px] pb-3 border-b border-b-solid border-b-greyScale25">
@@ -163,18 +226,24 @@ function Index() {
                   Date et heure de d'arrivée
                 </h3>
                 <p className="text-xs text-greyScale300">
-                  25, septembre 2025 - 10h30
+                  {travelDetail.arrivalDate} - 10h30
                 </p>
               </div>
               <div className="space-y-[2px] pb-3 border-b border-b-solid border-b-greyScale25">
                 <h3 className="font-dmSansSemibold text-sm">
                   Poids disponible
                 </h3>
-                <p className="text-xs text-greyScale300">23 kilos * 2</p>
+                <p className="text-xs text-greyScale300">
+                  {" "}
+                  {travelDetail.weightAvailable}{" "}
+                </p>
               </div>
               <div className="space-y-[2px] pb-3m ">
                 <h3 className="font-dmSansSemibold text-sm">Prix du kilo</h3>
-                <p className="text-xs text-greyScale300">15$</p>
+                <p className="text-xs text-greyScale300">
+                  {" "}
+                  ${travelDetail.pricePerKg}{" "}
+                </p>
               </div>
             </div>
           </ModalLayout>

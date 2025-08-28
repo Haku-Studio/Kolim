@@ -5,7 +5,8 @@ interface ErrorProps {
   arrivalDate: string;
   weightAvailable: string;
   pricePerKg: string;
-};
+  phoneNumber?: string;
+}
 
 export function validateTravelForm(formData: any): ErrorProps {
   const errors: ErrorProps = {
@@ -15,6 +16,7 @@ export function validateTravelForm(formData: any): ErrorProps {
     arrivalDate: "",
     weightAvailable: "",
     pricePerKg: "",
+    phoneNumber: "",
   };
   if (!formData.from.trim()) errors.from = "Ville de départ requise";
   if (!formData.to.trim()) errors.to = "Ville d'arrivée requise";
@@ -30,5 +32,9 @@ export function validateTravelForm(formData: any): ErrorProps {
   ) {
     errors.arrivalDate = "La date d'arrivée doit être après la date de départ";
   }
+
+  // if (formData.phoneNumber && !/^\d{10}$/.test(formData.phoneNumber))
+  //   errors.phoneNumber = "Numéro de téléphone invalide";
+
   return errors;
 }

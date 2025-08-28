@@ -48,10 +48,24 @@ export const useTravel = () => {
     }
   };
 
+  const search = async (params: Partial<Travel>) => {
+    try {
+      setIsLoading(true);
+      const results = await travelService.searchTravels(params);
+      return results.data;
+    } catch (err) {
+      setError(err as Error);
+      throw err;
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return {
     getTravels,
     createTravel,
     travelDetail,
+    search,
     isLoading,
     error
   };

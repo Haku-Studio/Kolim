@@ -14,6 +14,7 @@ export const API_ENDPOINTS = {
     CREATE: '/travels',
     GET_OWNER: () => `/travels/owner`,
     GET: (id: number) => `/travels/${id}`,
+    SEARCH: () => `/travels/search`,
     UPDATE: (id: number) => `/travels/${id}`,
     DELETE: (id: number) => `/travels/${id}`
   },
