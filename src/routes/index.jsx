@@ -122,8 +122,8 @@ function Index() {
                     <input 
                       type="depature_town" 
                       id="depature_town"
-                      placeholder=""
-                      className="px-3 py-[13px] border border-solid border-greyScale50 rounded-[10px] bg-greyScale0 focus:outline-none block w-full"
+                      placeholder="Douala"
+                      className="text-sm px-3 py-[13px] border border-solid border-greyScale50 rounded-[10px] bg-greyScale0 focus:outline-none block w-full"
                       required
                     />
                   </div>
@@ -135,8 +135,8 @@ function Index() {
                     <input 
                       type="depature_town" 
                       id="depature_town"
-                      placeholder=""
-                      className="px-3 py-[13px] border border-solid border-greyScale50 rounded-[10px] bg-greyScale0 focus:outline-none block w-full"
+                      placeholder="Istanbul"
+                      className="text-sm px-3 py-[13px] border border-solid border-greyScale50 rounded-[10px] bg-greyScale0 focus:outline-none block w-full"
                       required
                     />
                   </div>
@@ -150,7 +150,7 @@ function Index() {
                     type="depature_town" 
                     id="depature_town"
                     placeholder=""
-                    className="px-3 py-[13px] border border-solid border-greyScale50 rounded-[10px] bg-greyScale0 focus:outline-none block w-full"
+                    className="text-sm px-3 py-[13px] border border-solid border-greyScale50 rounded-[10px] bg-greyScale0 focus:outline-none block w-full"
                     required
                   />
                 </div>
@@ -163,7 +163,7 @@ function Index() {
                     type="depature_town" 
                     id="depature_town"
                     placeholder=""
-                    className="px-3 py-[13px] border border-solid border-greyScale50 rounded-[10px] bg-greyScale0 focus:outline-none block w-full"
+                    className="text-sm px-3 py-[13px] border border-solid border-greyScale50 rounded-[10px] bg-greyScale0 focus:outline-none block w-full"
                     required
                   />
                 </div>
@@ -177,7 +177,7 @@ function Index() {
                       type="depature_town" 
                       id="depature_town"
                       placeholder=""
-                      className="px-3 py-[13px] border border-solid border-greyScale50 rounded-[10px] bg-greyScale0 focus:outline-none block w-full"
+                      className="text-sm px-3 py-[13px] border border-solid border-greyScale50 rounded-[10px] bg-greyScale0 focus:outline-none block w-full"
                       required
                     />
                   </div>
@@ -190,7 +190,7 @@ function Index() {
                       type="depature_town" 
                       id="depature_town"
                       placeholder=""
-                      className="px-3 py-[13px] border border-solid border-greyScale50 rounded-[10px] bg-greyScale0 focus:outline-none block w-full"
+                      className="text-sm px-3 py-[13px] border border-solid border-greyScale50 rounded-[10px] bg-greyScale0 focus:outline-none block w-full"
                       required
                     />
                   </div>

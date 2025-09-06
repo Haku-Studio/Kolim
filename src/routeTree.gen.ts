@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SearchRouteImport } from './routes/search'
 import { Route as OnboardingRouteImport } from './routes/onboarding'
+import { Route as MyPackagesRouteImport } from './routes/my-packages'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
@@ -23,6 +24,11 @@ const SearchRoute = SearchRouteImport.update({
 const OnboardingRoute = OnboardingRouteImport.update({
   id: '/onboarding',
   path: '/onboarding',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MyPackagesRoute = MyPackagesRouteImport.update({
+  id: '/my-packages',
+  path: '/my-packages',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthRoute = AuthRouteImport.update({
@@ -45,6 +51,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/auth': typeof AuthRoute
+  '/my-packages': typeof MyPackagesRoute
   '/onboarding': typeof OnboardingRoute
   '/search': typeof SearchRoute
 }
@@ -52,6 +59,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/auth': typeof AuthRoute
+  '/my-packages': typeof MyPackagesRoute
   '/onboarding': typeof OnboardingRoute
   '/search': typeof SearchRoute
 }
@@ -60,21 +68,36 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/auth': typeof AuthRoute
+  '/my-packages': typeof MyPackagesRoute
   '/onboarding': typeof OnboardingRoute
   '/search': typeof SearchRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/auth' | '/onboarding' | '/search'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/auth'
+    | '/my-packages'
+    | '/onboarding'
+    | '/search'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/auth' | '/onboarding' | '/search'
-  id: '__root__' | '/' | '/about' | '/auth' | '/onboarding' | '/search'
+  to: '/' | '/about' | '/auth' | '/my-packages' | '/onboarding' | '/search'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/auth'
+    | '/my-packages'
+    | '/onboarding'
+    | '/search'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   AuthRoute: typeof AuthRoute
+  MyPackagesRoute: typeof MyPackagesRoute
   OnboardingRoute: typeof OnboardingRoute
   SearchRoute: typeof SearchRoute
 }
@@ -93,6 +116,13 @@ declare module '@tanstack/react-router' {
       path: '/onboarding'
       fullPath: '/onboarding'
       preLoaderRoute: typeof OnboardingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/my-packages': {
+      id: '/my-packages'
+      path: '/my-packages'
+      fullPath: '/my-packages'
+      preLoaderRoute: typeof MyPackagesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/auth': {
@@ -123,6 +153,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   AuthRoute: AuthRoute,
+  MyPackagesRoute: MyPackagesRoute,
   OnboardingRoute: OnboardingRoute,
   SearchRoute: SearchRoute,
 }

@@ -11,7 +11,7 @@ export default function FormInput({...props}){
             <input 
                 type={props.inputType} 
                 id={props.inputId}
-                placeholder=""
+                placeholder={props.inputPlaceholder}
                 className="px-3 py-[13px] border border-solid border-greyScale50 rounded-[10px] bg-greyScale0 focus:outline-none block w-full text-greyScale500 text-sm"
                 required = {props.required}
             />
